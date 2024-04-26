@@ -43,6 +43,8 @@ ingress:
 
 issuer:
   swaggerEnabled: true
+  image:
+    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
   credential:
     issuerDid: "did:web:dim-static-prod.dis-cloud-prod.cfapps.eu10-004.hana.ondemand.com:dim-hosted:2f45795c-d6cc-4038-96c9-63cedc0cd266:holder-iatp"
     issuerBpn: "BPNL00000003CRHK"
@@ -55,10 +57,14 @@ issuer:
     clientSecret: "<path:portal/data/ssi-credential-issuer/int/portal#clientSecret>"
 
 issuermigrations:
+  image:
+    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
   logging:
     default: "Debug"
 
 processesworker:
+  image:
+    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
   logging:
     default: "Debug"
   portal:
@@ -72,6 +78,8 @@ processesworker:
         encryptionKey: "<path:portal/data/ssi-credential-issuer/int/wallet#encryptionKey0>"
 
 credentialExpiry:
+  image:
+    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
   logging:
     default: "Debug"
 

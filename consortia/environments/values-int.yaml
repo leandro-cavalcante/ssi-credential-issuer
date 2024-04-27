@@ -44,7 +44,7 @@ ingress:
 issuer:
   swaggerEnabled: true
   image:
-    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
+    tag: "9f79c541873c951eb6335aba6b5b1adda0ee25e9"
   credential:
     issuerDid: "did:web:dim-static-prod.dis-cloud-prod.cfapps.eu10-004.hana.ondemand.com:dim-hosted:2f45795c-d6cc-4038-96c9-63cedc0cd266:holder-iatp"
     issuerBpn: "BPNL00000003CRHK"
@@ -58,13 +58,13 @@ issuer:
 
 issuermigrations:
   image:
-    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
+    tag: "9f79c541873c951eb6335aba6b5b1adda0ee25e9"
   logging:
     default: "Debug"
 
 processesworker:
   image:
-    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
+    tag: "9f79c541873c951eb6335aba6b5b1adda0ee25e9"
   logging:
     default: "Debug"
   portal:
@@ -79,7 +79,7 @@ processesworker:
 
 credentialExpiry:
   image:
-    tag: "e32ec3a47e94133294a8e7035f81e5d8fbe305e3"
+    tag: "9f79c541873c951eb6335aba6b5b1adda0ee25e9"
   logging:
     default: "Debug"
 

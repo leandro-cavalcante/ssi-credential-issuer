@@ -96,7 +96,7 @@ public class WalletBusinessLogic : IWalletBusinessLogic
 
     public async Task CreateCredentialForHolder(Guid companySsiDetailId, string holderWalletUrl, string clientId, EncryptionInformation encryptionInformation, string credential, CancellationToken cancellationToken)
     {
-        var cryptoConfig = _settings.EncryptionConfigs.SingleOrDefault(x => x.Index == encryptionInformation.EncryptionMode) ?? throw new ConfigurationException($"EncryptionModeIndex {encryptionInformation.EncryptionMode} is not configured");
+        var cryptoConfig = _settings.EncryptionConfigs.FirstOrDefault(x => x.Index == encryptionInformation.EncryptionMode) ?? throw new ConfigurationException($"EncryptionModeIndex {encryptionInformation.EncryptionMode} is not configured");
         var secret = CryptoHelper.Decrypt(encryptionInformation.Secret, encryptionInformation.InitializationVector, Convert.FromHexString(cryptoConfig.EncryptionKey), cryptoConfig.CipherMode, cryptoConfig.PaddingMode);
 
         await _walletService

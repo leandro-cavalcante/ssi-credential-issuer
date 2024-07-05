@@ -19,6 +19,13 @@
 
 ---
 version: 2
+registries:
+  github-central-pipelines:
+    type: git
+    url: https://github.com
+    username: x-access-token
+    password: ${{ secrets.CENTRAL_PIPELINES_READ_ONLY_GH_TOKEN }}
+
 updates:
   # NuGet
   -
@@ -29,6 +36,7 @@ updates:
       - "dependencies"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
@@ -47,9 +55,12 @@ updates:
       - "github-actions"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
     groups:
       dependencies:
         dependency-type: "production"
+    registries:
+      - github-central-pipelines
 
   # Docker
   -
@@ -60,6 +71,7 @@ updates:
       - "docker"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]

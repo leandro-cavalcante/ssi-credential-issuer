@@ -47,6 +47,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
@@ -71,7 +73,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           dotnet tool install --global dotnet-coverage
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:Cofinity-X_ssi-credential-issuer /o:cofinity-x /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=src/coverage.xml
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:Cofinity-X_ssi-credential-issuer /o:cofinity-x /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=src/coverage.xml
           dotnet build src
           cd src
           dotnet-coverage collect 'dotnet test --no-restore --verbosity normal' -s 'settings-coverage.xml' -f xml -o 'coverage.xml'

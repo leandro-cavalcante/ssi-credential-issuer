@@ -33,7 +33,7 @@ jobs:
     with:
       dotnet-version: 8.0
       project: "src"
-      codeql-cfg-path: .github/codeql/codeql-config.yaml
+      codeql-cfg-path: ./.github/codeql/codeql-config.yaml
 
   # The sonar job needs to use to central resusable worklows once it's available there
   sonar-scan:

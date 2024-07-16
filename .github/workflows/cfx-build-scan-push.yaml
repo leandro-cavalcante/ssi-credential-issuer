@@ -121,7 +121,7 @@ jobs:
     needs: dockerizing-application
     name: Dispatch charts repo workflow
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'pull_request' }} # Execute only if container image is pushed
+    if: ${{ (github.event_name != 'pull_request') && (github.ref_type != 'tag') }}  # Execute only if container image is pushed and no tag is published
     steps:
       # Get image tags from the previous job filter the tag that needs to be updated (Currently, it's main-{sha})
       - name: Get image tags

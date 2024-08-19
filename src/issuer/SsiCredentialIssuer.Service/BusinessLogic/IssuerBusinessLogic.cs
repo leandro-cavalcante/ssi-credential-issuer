@@ -22,9 +22,8 @@ using Microsoft.Extensions.Options;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.DateTimeProvider;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.ErrorHandling;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.HttpClientExtensions;
-using Org.Eclipse.TractusX.Portal.Backend.Framework.Linq;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.Models;
-using Org.Eclipse.TractusX.Portal.Backend.Framework.Models.Encryption;
+using Org.Eclipse.TractusX.Portal.Backend.Framework.Models.Configuration;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess.Models;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess.Repositories;
@@ -173,6 +172,7 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
         var typeValue = data.Type.GetEnumValue() ?? throw UnexpectedConditionException.Create(IssuerErrors.CREDENTIAL_TYPE_NOT_FOUND, new ErrorParameter[] { new("verifiedCredentialType", data.Type.ToString()) });
         var mailParameters = new MailParameter[]
         {
+            new("companyName", data.Bpn),
             new("requestName", typeValue),
             new("credentialType", typeValue),
             new("expiryDate", expiry.ToString("o", CultureInfo.InvariantCulture))
@@ -386,7 +386,7 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
                 StatusList)
         );
         var schema = JsonSerializer.Serialize(schemaData, Options);
-        return await HandleCredentialProcessCreation(requestData.HolderBpn, VerifiedCredentialTypeKindId.MEMBERSHIP, VerifiedCredentialTypeId.DISMANTLER_CERTIFICATE, expiryDate, schema, requestData.TechnicalUserDetails, null, requestData.CallbackUrl, companyCredentialDetailsRepository);
+        return await HandleCredentialProcessCreation(requestData.HolderBpn, VerifiedCredentialTypeKindId.MEMBERSHIP, VerifiedCredentialTypeId.MEMBERSHIP, expiryDate, schema, requestData.TechnicalUserDetails, null, requestData.CallbackUrl, companyCredentialDetailsRepository);
     }
 
     public async Task<Guid> CreateFrameworkCredential(CreateFrameworkCredentialRequest requestData, CancellationToken cancellationToken)
@@ -439,17 +439,15 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
             Guid.NewGuid(),
             Context,
             new[] { "VerifiableCredential", externalTypeId },
-            externalTypeId,
-            $"Framework Credential for UseCase {externalTypeId}",
             DateTimeOffset.UtcNow,
-            result.Expiry,
+            GetExpiryDate(result.Expiry),
             _settings.IssuerDid,
             new FrameworkCredentialSubject(
                 holderDid,
                 requestData.HolderBpn,
                 "UseCaseFramework",
                 externalTypeId,
-                result.Template!,
+                result.Template,
                 result.Version!
             ),
             new CredentialStatus(
@@ -493,7 +491,7 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
         var documentContent = Encoding.UTF8.GetBytes(schema);
         var hash = SHA512.HashData(documentContent);
         var documentRepository = _repositories.GetInstance<IDocumentRepository>();
-        var docId = documentRepository.CreateDocument("schema.json", documentContent,
+        var docId = documentRepository.CreateDocument($"{typeId}.json", documentContent,
             hash, MediaTypeId.JSON, DocumentTypeId.PRESENTATION, x =>
             {
                 x.IdentityId = _identity.IdentityId;
@@ -530,13 +528,13 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
                     return;
                 }
 
-                var cryptoConfig = _settings.EncryptionConfigs.SingleOrDefault(x => x.Index == _settings.EncrptionConfigIndex) ?? throw new ConfigurationException($"EncryptionModeIndex {_settings.EncrptionConfigIndex} is not configured");
-                var (secret, initializationVector) = CryptoHelper.Encrypt(technicalUserDetails.ClientSecret, Convert.FromHexString(cryptoConfig.EncryptionKey), cryptoConfig.CipherMode, cryptoConfig.PaddingMode);
+                var cryptoHelper = _settings.EncryptionConfigs.GetCryptoHelper(_settings.EncryptionConfigIndex);
+                var (secret, initializationVector) = cryptoHelper.Encrypt(technicalUserDetails.ClientSecret);
 
                 c.ClientId = technicalUserDetails.ClientId;
                 c.ClientSecret = secret;
                 c.InitializationVector = initializationVector;
-                c.EncryptionMode = _settings.EncrptionConfigIndex;
+                c.EncryptionMode = _settings.EncryptionConfigIndex;
                 c.HolderWalletUrl = technicalUserDetails.WalletUrl;
                 c.CallbackUrl = callbackUrl;
             });

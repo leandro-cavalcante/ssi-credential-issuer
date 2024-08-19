@@ -17,7 +17,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-portalBackendAddress: "https://portal-backend-rc.dev.demo.catena-x.net"
+portalBackendAddress: "https://portal-backend.dev.demo.catena-x.net"
 walletAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap"
 walletTokenAddress: "https://bpnl00000003crhk-catena-x.authentication.eu10.hana.ondemand.com/oauth/token"
 
@@ -32,18 +32,18 @@ ingress:
   tls:
     - secretName: "tls-secret"
       hosts:
-        - "ssi-credential-issuer-rc.dev.demo.catena-x.net"
+        - "ssi-credential-issuer.dev.demo.catena-x.net"
   hosts:
-    - host: "ssi-credential-issuer-rc.dev.demo.catena-x.net"
+    - host: "ssi-credential-issuer.dev.demo.catena-x.net"
       paths:
         - path: "/api"
           pathType: "Prefix"
           backend:
             port: 8080
 
-issuer:
+service:
   image:
-    tag: "rc"
+    tag: "main"
   imagePullPolicy: "Always"
   swaggerEnabled: true
   credential:
@@ -57,9 +57,9 @@ issuer:
     clientId: "<path:portal/data/ssi-credential-issuer/portal#clientId>"
     clientSecret: "<path:portal/data/ssi-credential-issuer/dev/portal#clientSecret>"
 
-issuermigrations:
+migrations:
   image:
-    tag: "rc"
+    tag: "main"
   imagePullPolicy: "Always"
   logging:
     default: "Debug"
@@ -68,7 +68,7 @@ issuermigrations:
 
 processesworker:
   image:
-    tag: "rc"
+    tag: "main"
   imagePullPolicy: "Always"
   logging:
     default: "Debug"
@@ -78,19 +78,16 @@ processesworker:
   wallet:
     clientId: "<path:portal/data/ssi-credential-issuer/dev/wallet#clientId>"
     clientSecret: "<path:portal/data/ssi-credential-issuer/dev/wallet#clientSecret>"
-    encryptionConfigs:
-      index0:
-        encryptionKey: "<path:portal/data/ssi-credential-issuer/dev/wallet#encryptionKey0>"
 
 credentialExpiry:
   image:
-    tag: "rc"
+    tag: "main"
   imagePullPolicy: "Always"
   logging:
     default: "Debug"
 
 centralidp:
-  address: "https://centralidp-rc.dev.demo.catena-x.net"
+  address: "https://centralidp.dev.demo.catena-x.net"
   jwtBearerOptions:
     tokenValidationParameters:
       validAudience: "Cl24-CX-SSI-CredentialIssuer"

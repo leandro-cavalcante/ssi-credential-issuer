@@ -43,5 +43,10 @@
     "id": "3793a2d9-6bc5-44f0-b952-7d3f6b747dd7",
     "name": "Demand and Capacity Management",
     "shortname": "Puris"
+  },
+  {
+    "id": "80ef2989-7540-4c18-ac04-62712c41af6e",
+    "name": "DataExchangeGovernance",
+    "shortname": "DEG"
   }
 ]

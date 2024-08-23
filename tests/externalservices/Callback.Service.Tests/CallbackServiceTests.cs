@@ -51,16 +51,13 @@ public class CallbackServiceTests
 
         _options = Options.Create(new CallbackSettings
         {
-            Password = "passWord",
             Scope = "test",
-            Username = "user@name",
             ClientId = "CatenaX",
             ClientSecret = "pass@Secret",
             GrantType = "cred",
             TokenAddress = "https://example.org/token"
         });
         _tokenService = A.Fake<ITokenService>();
-        // _fixture.Inject(_tokenService);
         _fixture.Inject(_options);
     }
 

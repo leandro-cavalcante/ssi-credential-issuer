@@ -50,9 +50,7 @@ public class PortalServiceTests
 
         _options = Options.Create(new PortalSettings
         {
-            Password = "passWord",
             Scope = "test",
-            Username = "user@name",
             BaseAddress = "https://base.address.com",
             ClientId = "CatenaX",
             ClientSecret = "pass@Secret",

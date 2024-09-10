@@ -19,6 +19,8 @@
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.ErrorHandling.Service;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.Token;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.Web;
@@ -59,6 +61,18 @@ await WebApplicationBuildRunner
                 .AddSingleton<IErrorMessageContainer, IssuerErrorMessageContainer>()
                 .AddSingleton<IErrorMessageContainer, RevocationErrorMessageContainer>()
                 .AddSingleton<IErrorMessageContainer, CredentialErrorMessageContainer>();
+
+            // Configure the OpenTelemetry and the Prometheus Exporter
+            builder.Services.AddOpenTelemetry()
+                .ConfigureResource(resource => resource
+                    .AddService(serviceName: builder.Environment.ApplicationName))
+                .WithMetrics(metrics => metrics
+                    .AddAspNetCoreInstrumentation()  // Capture ASP.NET Core metrics
+                    .AddPrometheusExporter()         // Add Prometheus exporter for metrics
+                    .AddConsoleExporter((exporterOptions, metricReaderOptions) =>
+                    {
+                        metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 1000;
+                    }));
         },
     (app, _) =>
     {
@@ -67,4 +81,6 @@ await WebApplicationBuildRunner
             .MapIssuerApi()
             .MapRevocationApi()
             .MapCredentialApi();
+        // Expose Prometheus scraping endpoint on the same port (8080)
+        app.UseOpenTelemetryPrometheusScrapingEndpoint();  // Exposes /metrics endpoint
     }).ConfigureAwait(ConfigureAwaitOptions.None);

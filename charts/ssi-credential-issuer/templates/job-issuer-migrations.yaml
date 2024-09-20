@@ -71,6 +71,10 @@ spec:
             value: "{{ .Values.migrations.logging.default }}"
           - name: "PROCESSIDENTITY__IDENTITYID"
             value: "{{ .Values.migrations.processIdentity.identityId }}"
+          {{- range $key, $val := .Values.migrations.extraEnvVars }}
+          - name: {{ $key }}
+            value: {{ $val | quote }}
+          {{- end }}
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

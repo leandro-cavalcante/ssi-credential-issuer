@@ -2,9 +2,7 @@
 
 This helm chart installs the Catena-X SSI Credential Issuer application.
 
-For further information please refer to [Technical Documentation](/docs/technical-documentation).
-
-For information about the initial credential creation for the Operator, please refer to [initial credential setup](/docs/technical-documentation/operator-credential-creation/initial-credential-setup.md)
+For further information please refer to [Technical Documentation](./docs/technical-documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -29,7 +27,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: ssi-credential-issuer
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.1.0
+    version: 1.0.0
 ```
 
 ## Requirements
@@ -45,39 +43,39 @@ dependencies:
 | portalBackendAddress | string | `"https://portal-backend.example.org"` | Provide portal-backend base address. |
 | walletAddress | string | `"https://wallet.example.org"` |  |
 | walletTokenAddress | string | `"https://wallet.example.org/oauth/token"` |  |
-| service.image.name | string | `"docker.io/tractusx/ssi-credential-issuer-service"` |  |
-| service.image.tag | string | `""` |  |
-| service.imagePullPolicy | string | `"IfNotPresent"` |  |
-| service.resources | object | `{"limits":{"cpu":"45m","memory":"400M"},"requests":{"cpu":"15m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
-| service.logging.businessLogic | string | `"Information"` |  |
-| service.logging.default | string | `"Information"` |  |
-| service.healthChecks.startup.path | string | `"/health/startup"` |  |
-| service.healthChecks.startup.tags[0].name | string | `"HEALTHCHECKS__0__TAGS__1"` |  |
-| service.healthChecks.startup.tags[0].value | string | `"issuerdb"` |  |
-| service.healthChecks.liveness.path | string | `"/healthz"` |  |
-| service.healthChecks.readyness.path | string | `"/ready"` |  |
-| service.swaggerEnabled | bool | `false` |  |
-| service.portal.scope | string | `"openid"` |  |
-| service.portal.grantType | string | `"client_credentials"` |  |
-| service.portal.clientId | string | `"portal-client-id"` | Provide portal client-id from CX IAM centralidp. |
-| service.portal.clientSecret | string | `""` | Client-secret for portal client-id. Secret-key 'portal-client-secret'. |
-| service.credential.issuerDid | string | `"did:web:example"` |  |
-| service.credential.issuerBpn | string | `"BPNL00000001TEST"` |  |
-| service.credential.statusListUrl | string | `"https://example.org/statuslist"` |  |
-| service.credential.encryptionConfigIndex | int | `0` |  |
-| service.credential.encryptionConfigs.index0.index | int | `0` |  |
-| service.credential.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
-| service.credential.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
-| service.credential.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for wallet. Secret-key 'credential-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
-| migrations.name | string | `"migrations"` |  |
-| migrations.image.name | string | `"docker.io/tractusx/ssi-credential-issuer-migrations"` |  |
-| migrations.image.tag | string | `""` |  |
-| migrations.imagePullPolicy | string | `"IfNotPresent"` |  |
-| migrations.resources | object | `{"limits":{"cpu":"45m","memory":"200M"},"requests":{"cpu":"15m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
-| migrations.seeding.testDataEnvironments | string | `""` |  |
-| migrations.seeding.testDataPaths | string | `"Seeder/Data"` |  |
-| migrations.logging.default | string | `"Information"` |  |
-| migrations.processIdentity.identityId | string | `"ac1cf001-7fbc-1f2f-817f-bce058020006"` |  |
+| issuer.image.name | string | `"docker.io/tractusx/ssi-credential-issuer-service"` |  |
+| issuer.image.tag | string | `""` |  |
+| issuer.imagePullPolicy | string | `"IfNotPresent"` |  |
+| issuer.resources | object | `{"limits":{"cpu":"45m","memory":"400M"},"requests":{"cpu":"15m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
+| issuer.logging.businessLogic | string | `"Information"` |  |
+| issuer.logging.default | string | `"Information"` |  |
+| issuer.healthChecks.startup.path | string | `"/health/startup"` |  |
+| issuer.healthChecks.startup.tags[0].name | string | `"HEALTHCHECKS__0__TAGS__1"` |  |
+| issuer.healthChecks.startup.tags[0].value | string | `"issuerdb"` |  |
+| issuer.healthChecks.liveness.path | string | `"/healthz"` |  |
+| issuer.healthChecks.readyness.path | string | `"/ready"` |  |
+| issuer.swaggerEnabled | bool | `false` |  |
+| issuer.portal.scope | string | `"openid"` |  |
+| issuer.portal.grantType | string | `"client_credentials"` |  |
+| issuer.portal.clientId | string | `"portal-client-id"` | Provide portal client-id from CX IAM centralidp. |
+| issuer.portal.clientSecret | string | `""` | Client-secret for portal client-id. Secret-key 'portal-client-secret'. |
+| issuer.credential.issuerDid | string | `"did:web:example"` |  |
+| issuer.credential.issuerBpn | string | `"BPNL00000001TEST"` |  |
+| issuer.credential.statusListUrl | string | `"https://example.org/statuslist"` |  |
+| issuer.credential.encryptionConfigIndex | int | `0` |  |
+| issuer.credential.encryptionConfigs.index0.index | int | `0` |  |
+| issuer.credential.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| issuer.credential.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| issuer.credential.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for wallet. Secret-key 'credential-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
+| issuermigrations.name | string | `"migrations"` |  |
+| issuermigrations.image.name | string | `"docker.io/tractusx/ssi-credential-issuer-migrations"` |  |
+| issuermigrations.image.tag | string | `""` |  |
+| issuermigrations.imagePullPolicy | string | `"IfNotPresent"` |  |
+| issuermigrations.resources | object | `{"limits":{"cpu":"45m","memory":"200M"},"requests":{"cpu":"15m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
+| issuermigrations.seeding.testDataEnvironments | string | `""` |  |
+| issuermigrations.seeding.testDataPaths | string | `"Seeder/Data"` |  |
+| issuermigrations.logging.default | string | `"Information"` |  |
+| issuermigrations.processIdentity.identityId | string | `"ac1cf001-7fbc-1f2f-817f-bce058020006"` |  |
 | processesworker.name | string | `"processesworker"` |  |
 | processesworker.image.name | string | `"docker.io/tractusx/ssi-credential-issuer-processes-worker"` |  |
 | processesworker.image.tag | string | `""` |  |
@@ -93,6 +91,11 @@ dependencies:
 | processesworker.wallet.grantType | string | `"client_credentials"` |  |
 | processesworker.wallet.clientId | string | `"wallet-client-id"` | Provide wallet client-id from CX IAM centralidp. |
 | processesworker.wallet.clientSecret | string | `""` | Client-secret for wallet client-id. Secret-key 'wallet-client-secret'. |
+| processesworker.wallet.encryptionConfigIndex | int | `0` |  |
+| processesworker.wallet.encryptionConfigs.index0.index | int | `0` |  |
+| processesworker.wallet.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| processesworker.wallet.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| processesworker.wallet.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for wallet. Secret-key 'process-wallet-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
 | credentialExpiry.name | string | `"expiry"` |  |
 | credentialExpiry.image.name | string | `"docker.io/tractusx/ssi-credential-expiry-app"` |  |
 | credentialExpiry.image.tag | string | `""` |  |

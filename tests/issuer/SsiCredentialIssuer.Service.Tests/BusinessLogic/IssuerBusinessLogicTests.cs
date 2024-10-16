@@ -119,7 +119,7 @@ public class IssuerBusinessLogicTests
         Setup_GetUseCaseParticipationAsync();
 
         // Act
-        var result = await _sut.GetUseCaseParticipationAsync().ToListAsync();
+        var result = await _sut.GetUseCaseParticipationAsync(null).ToListAsync();
 
         // Assert
         result.Should().HaveCount(5);
@@ -953,7 +953,7 @@ public class IssuerBusinessLogicTests
         var verifiedCredentials = _fixture.Build<CompanySsiExternalTypeDetailData>()
             .With(x => x.SsiDetailData, _fixture.CreateMany<CompanySsiDetailData>(1))
             .CreateMany(5);
-        A.CallTo(() => _companySsiDetailsRepository.GetUseCaseParticipationForCompany(Bpnl, A<DateTimeOffset>._))
+        A.CallTo(() => _companySsiDetailsRepository.GetUseCaseParticipationForCompany(Bpnl, A<DateTimeOffset>._, null))
             .Returns(_fixture.Build<UseCaseParticipationData>().With(x => x.VerifiedCredentials, verifiedCredentials).CreateMany(5).ToAsyncEnumerable());
     }
 

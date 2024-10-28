@@ -3,12 +3,12 @@ name: CFX Lint and publish helm chart to ACR
 on:
   workflow_dispatch:
   pull_request:
-    branches: [ main, jupiter-rc ]
+    branches: [ main ]
     paths:
       - "charts/"
       - ".github/workflows/cfx-helm-package.yaml"
   push:
-    branches: [ main, jupiter-rc ]
+    branches: [ main ]
     paths:
       - "charts/"
       - ".github/workflows/cfx-helm-package.yaml"

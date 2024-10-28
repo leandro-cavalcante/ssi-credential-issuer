@@ -69,10 +69,7 @@ await WebApplicationBuildRunner
                 .WithMetrics(metrics => metrics
                     .AddAspNetCoreInstrumentation()  // Capture ASP.NET Core metrics
                     .AddPrometheusExporter()         // Add Prometheus exporter for metrics
-                    .AddConsoleExporter((exporterOptions, metricReaderOptions) =>
-                    {
-                        metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 1000;
-                    }));
+                    );
         },
     (app, _) =>
     {

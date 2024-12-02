@@ -88,7 +88,7 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
         StatusType? statusTypeResult = null;
         if (!string.IsNullOrEmpty(status))
         {
-            if (!(Enum.TryParse<StatusType>(status, ignoreCase: true, out var statusType) || !Enum.IsDefined(typeof(StatusType), statusType)))
+            if (IsNumber(status) || !(Enum.TryParse<StatusType>(status, ignoreCase: true, out var statusType) || !Enum.IsDefined(typeof(StatusType), statusType)))
             {
                 throw new ArgumentException($"Status value {status} is not valid; please use Active, Expired or All");
             }
@@ -98,6 +98,11 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
         return _repositories
             .GetInstance<ICompanySsiDetailsRepository>()
             .GetUseCaseParticipationForCompany(_identity.Bpnl, _dateTimeProvider.OffsetNow, statusTypeResult);
+    }
+
+    private static bool IsNumber(string status)
+    {
+        return int.TryParse(status, out _);
     }
 
     /// <inheritdoc />

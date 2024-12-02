@@ -223,6 +223,20 @@ public class IssuerBusinessLogicTests
     }
 
     [Fact]
+    public async Task GetUseCaseParticipationAsync_WithInvalidStatus_NumbersProvided_ThrowsArgumentException()
+    {
+        // Arrange
+        var status = "12234";
+
+        // Act
+        Func<Task> act = async () => await _sut.GetUseCaseParticipationAsync(status).ToListAsync();
+
+        // Assert
+        await act.Should().ThrowAsync<ArgumentException>()
+            .WithMessage($"Status value {status} is not valid; please use Active, Expired or All");
+    }
+
+    [Fact]
     public async Task GetUseCaseParticipationAsync_WithAllStatus_ReturnsExpectedResults()
     {
         // Arrange

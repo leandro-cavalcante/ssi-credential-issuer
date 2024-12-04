@@ -1,0 +1,25 @@
+[
+  {
+    "company_ssi_detail_id": "3656a5fa-57e0-486a-a7c0-03c1792d5904",
+    "schema": "{\"id\":\"3f4d84a8-6ba6-48a7-8ac2-51ad2be31773\",\"name\":\"MembershipCatena\",\"type\":[\"VerifiableCredential\",\"MembershipCredential\"],\"issuer\":\"did:web:portal-backend.svc.cofinity-x.com:api:administration:staticdata:did:BPNLCOFINITYEZFA\",\"@context\":[\"https://www.w3.org/2018/credentials/v1\",\"https://www.w3.org/ns/did/v1\",\"https://w3id.org/security/suites/jws-2020/v1\"],\"issuanceDate\":\"2024-10-21T06:33:21.549Z\",\"expirationDate\":\"2025-10-16T00:00:00.000Z\",\"credentialStatus\":{\"id\":\"https://dim-static-prod.dis-cloud-prod.cfapps.eu10-004.hana.ondemand.com/credentials/status/5de3ec9a-4b7f-4090-87a9-171448c8e136/1bdc7918-a7e9-4331-93b6-13b64589ddd3#74\",\"type\":\"StatusList2021Entry\",},\"credentialSubject\":{\"id\":\"did:web:portal-backend.svc.cofinity-x.com:api:administration:staticdata:did:BPNLCOFINITYEZFA\",\"bpn\":\"BPNLCOFINITYEZFA\",\"holderIdentifier\":\"BPNLCOFINITYEZFA\"}}",
+    "credential_type_kind_id": 2,
+    "client_id": null,
+    "client_secret": null,
+    "initialization_vector": null,
+    "encryption_mode": null,
+    "holder_wallet_url": "https://cofinityx-re5lmbtu.authentication.eu10.hana.ondemand.com",
+    "callback_url": "/api/administration/registration/issuer/membershipcredential"
+    },
+    {
+      "company_ssi_detail_id": "ea6d5d5b-f96d-47d2-923b-1f2e7225a312",
+      "schema": "{\"id\":\"27ebf772-1798-4ba3-a32e-af4603caf0f2\",\"name\":\"BPNCatena\",\"description\":\"BPNCatena\",\"type\":[\"VerifiableCredential\",\"BpnCredential\"],\"issuer\":\"did:web:portal-backend.svc.cofinity-x.com:api:administration:staticdata:did:BPNLCOFINITYEZFA\",\"@context\":[\"https://www.w3.org/2018/credentials/v1\",\"https://www.w3.org/ns/did/v1\",\"https://w3id.org/security/suites/jws-2020/v1\"],\"issuanceDate\":\"2024-10-21T07:03:34.904Z\",\"expirationDate\":\"2025-10-16T00:00:00.000Z\",\"credentialStatus\":{\"id\":\"https://dim-static-prod.dis-cloud-prod.cfapps.eu10-004.hana.ondemand.com/credentials/status/5de3ec9a-4b7f-4090-87a9-171448c8e136/1bdc7918-a7e9-4331-93b6-13b64589ddd3#75\",\"type\":\"StatusList2021Entry\"},\"credentialSubject\":{\"id\":\"did:web:portal-backend.svc.cofinity-x.com:api:administration:staticdata:did:BPNLCOFINITYEZFA\",\"bpn\":\"BPNLCOFINITYEZFA\",\"holderIdentifier\":\"BPNLCOFINITYEZFA\"}}",
+      "credential_type_kind_id": 3,
+      "client_id": null,
+      "client_secret": null,
+      "initialization_vector": null,
+      "encryption_mode": null,
+      "holder_wallet_url": "https://cofinityx-re5lmbtu.authentication.eu10.hana.ondemand.com",
+      "callback_url": "/api/administration/registration/issuer/bpncredential"      
+    }
+  
+]

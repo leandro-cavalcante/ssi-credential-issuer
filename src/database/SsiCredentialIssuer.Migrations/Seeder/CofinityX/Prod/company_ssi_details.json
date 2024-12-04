@@ -1,0 +1,32 @@
+[
+  {
+    "id": "3656a5fa-57e0-486a-a7c0-03c1792d5904",
+    "bpnl": "BPNLCOFINITYEZFA",
+    "issuer_bpn": "BPNLCOFINITYEZFA",
+    "verified_credential_type_id": 4,
+    "company_ssi_detail_status_id": 2,
+    "date_created": "2024-10-21 07:10:46.081591+00",
+    "creator_user_id": "service-account-sa-cl2-04",
+    "expiry_date": "2025-10-16 07:10:46.081591+00",
+    "verified_credential_external_type_detail_version_id": null,
+    "expiry_check_type_id": null,
+    "process_id": "8f18a32e-c899-4ceb-8e2a-5319e95f5df8",
+    "external_credential_id": null,
+    "credential": ""
+  },
+  {
+    "id": "ea6d5d5b-f96d-47d2-923b-1f2e7225a312",
+    "bpnl": "BPNLCOFINITYEZFA",
+    "issuer_bpn": "BPNLCOFINITYEZFA",
+    "verified_credential_type_id": 7,
+    "company_ssi_detail_status_id": 2,
+    "date_created": "2024-10-21 07:10:46.081591+00",
+    "creator_user_id": "service-account-sa-cl2-04",
+    "expiry_date": "2025-10-16 07:10:46.081591+00",
+    "verified_credential_external_type_detail_version_id": null,
+    "expiry_check_type_id": null,
+    "process_id": "8f18a32e-c899-4ceb-8e2a-5319e95f5df7",
+    "external_credential_id": null,
+    "credential": ""
+  }  
+]

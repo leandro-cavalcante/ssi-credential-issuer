@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.1.0-cfx-3](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-2...1.1.0-cfx-3) (2024-12-18)
+### Added
+* Seeding now contains the creation of BPN and MEMBERSHIP credential during migration
+* Enhanced the functionality of the existing GET /api/issuer/useCaseParticipation endpoint to filter the returned list of use case participations by the status of the credentials (Active, Expired, or All).
+* Updated the validation of existing filter for GET /api/issuer/useCaseParticipation to not accept numbers as values
+
+### Fixed
+* Updated the link to the correct Governance Framework credential.
+* Updated Github actions versions by @dependabot
+
+
+## [1.1.0-cfx-3-rc.3](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-3-rc.2...1.1.0-cfx-3-rc.3) (2024-12-05)
+### What's Changed
+* Updated the validation of existing filter for GET /api/issuer/useCaseParticipation to not accept numbers as values
+* Seeding now contains the creation of BPN and MEMBERSHIP credential during migration
+* Updated Github actions versions by @dependabot
+
+
+## [1.1.0-cfx-3-rc.2](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-3-rc.1...1.1.0-cfx-3-rc.2) (2024-11-22)
+### What's Changed
+* Enhanced the functionality of the existing GET /api/issuer/useCaseParticipation endpoint to filter the returned list of use case participations by the status of the credentials (Active, Expired, or All).
+
+## [1.1.0-cfx-3-rc.1](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-2...1.1.0-cfx-3-rc.1) (2024-11-21)
+### What's Changed
+* Updated the link to the correct Governance Framework credential.
+ 
+
 ## [1.1.0-cfx-2](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-1-rc.1...1.1.0-cfx-2) (2024-10-18)
 ### What's Changed
 * **seeding:** Updated the URL link to the correct data exchange file ([#51](https://github.com/Cofinity-X/ssi-credential-issuer/pull/51)) ([5b66803](https://github.com/Cofinity-X/ssi-credential-issuer/commit/5b6680371c3abede91d52aef7a1db4f1fbdb1220))

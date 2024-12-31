@@ -5,14 +5,14 @@ on:
   workflow_dispatch:
   pull_request:
     types: [ opened, synchronize, reopened ]
-    branches: [ main, jupiter-rc ]
+    branches: [ main, release/* ]
     paths:
       - 'docker/**'
       - 'src/**'
       - 'tests.*'
       - '.github/workflows/cfx-build-scan-push.yaml'
   push:
-    branches: [ main, jupiter-rc ]
+    branches: [ main, release/* ]
     paths:
       - 'docker/**'
       - 'src/**'

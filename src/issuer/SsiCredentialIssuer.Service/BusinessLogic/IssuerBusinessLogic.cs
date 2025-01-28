@@ -97,7 +97,8 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
 
         return _repositories
             .GetInstance<ICompanySsiDetailsRepository>()
-            .GetUseCaseParticipationForCompany(_identity.Bpnl, _dateTimeProvider.OffsetNow, statusTypeResult);
+            .GetUseCaseParticipationForCompany(_identity.Bpnl, _dateTimeProvider.OffsetNow, statusTypeResult)
+            .Where(item => item.VerifiedCredentials != null && item.VerifiedCredentials.Any());
     }
 
     private static bool IsNumber(string status)

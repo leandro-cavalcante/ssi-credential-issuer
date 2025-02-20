@@ -97,8 +97,8 @@ jobs:
             dockerfile: docker/Dockerfile-credential-issuer-migrations
           - service_name: ssi-credential-issuer-processes-worker
             dockerfile: docker/Dockerfile-credential-issuer-processes-worker
-          - service_name: ssi-credential-expiry-app
-            dockerfile: docker/Dockerfile-credential-expiry-app
+          - service_name: ssi-credential-data-deletion-app
+            dockerfile: docker/Dockerfile-credential-data-deletion-app
 
     name: Docker build, Trivy scan, Docker push
     uses: Cofinity-X/central-pipelines/.github/workflows/reusable-publish-image-to-acr.yaml@main
@@ -156,7 +156,7 @@ jobs:
           TOKEN: ${{ steps.get_token.outputs.token }}
           HELM_VALUES_PATH: "ssi-credential-issuer/${{ github.ref == 'refs/heads/main' && 'dev' }}/values.yaml"
           IMAGE_TAG: ${{ steps.get_tag.outputs.main_tag }}
-          IMAGE_TAG_PROPERTY: '(.ssi-credential-issuer.[\"service\", \"migrations\", \"credentialExpiry\", \"processesworker\"].image.tag)'
+          IMAGE_TAG_PROPERTY: '(.ssi-credential-issuer.[\"service\", \"migrations\", \"credentialDataDeletion\", \"processesworker\"].image.tag)'
           GITHUB_RUN_ID: ${{ github.run_id }}
         run: |
           curl -L \

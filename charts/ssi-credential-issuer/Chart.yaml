@@ -20,7 +20,7 @@
 apiVersion: v2
 name: ssi-credential-issuer
 type: application
-version: 1.1.0
+version: 1.1.0-cfx-1
 appVersion: 1.1.0
 description: Helm chart for SSI Credential Issuer
 home: https://github.com/eclipse-tractusx/ssi-credential-issuer

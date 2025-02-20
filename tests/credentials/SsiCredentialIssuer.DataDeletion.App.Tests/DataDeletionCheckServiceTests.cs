@@ -22,16 +22,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.DateTimeProvider;
+using Org.Eclipse.TractusX.SsiCredentialIssuer.DataDeletion.App.DependencyInjection;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess.Models;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess.Repositories;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Entities.Entities;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Entities.Enums;
-using Org.Eclipse.TractusX.SsiCredentialIssuer.Expiry.App.DependencyInjection;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Portal.Service.Models;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Portal.Service.Services;
 
-namespace Org.Eclipse.TractusX.SsiCredentialIssuer.Expiry.App.Tests;
+namespace Org.Eclipse.TractusX.SsiCredentialIssuer.DataDeletion.App.Tests;
 
 public class ExpiryCheckServiceTests
 {
@@ -79,7 +79,7 @@ public class ExpiryCheckServiceTests
         _settings = new ExpiryCheckServiceSettings
         {
             ExpiredVcsToDeleteInMonth = 12,
-            InactiveVcsToDeleteInWeeks = 8
+            InactiveVcsToDeleteInDays = 56
         };
         _sut = new ExpiryCheckService(serviceScopeFactory, _fixture.Create<ILogger<ExpiryCheckService>>(), Options.Create(_settings));
     }
@@ -89,7 +89,7 @@ public class ExpiryCheckServiceTests
     {
         // Arrange
         var now = DateTimeOffset.UtcNow;
-        var inactiveVcsToDelete = now.AddDays(-(_settings.InactiveVcsToDeleteInWeeks * 7));
+        var inactiveVcsToDelete = now.AddDays(-_settings.InactiveVcsToDeleteInDays);
         var credentialId = Guid.NewGuid();
         var credentialScheduleData = _fixture.Build<CredentialScheduleData>()
             .With(x => x.IsVcToDelete, true)

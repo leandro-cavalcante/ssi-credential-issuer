@@ -616,6 +616,23 @@ public class CompanySsiDetailsRepositoryTests
         changedEntries.Should().ContainSingle().Which.State.Should().Be(EntityState.Deleted);
     }
 
+    [Fact]
+    public async Task RemoveSsiDetail_Assigned_And_Documents_WithValidData_ReturnsExpected()
+    {
+        // Arrange
+        var (sut, context) = await CreateSutWithContext();
+
+        // Act
+        sut.RemoveSsiDetail(Guid.Parse("9f5b9934-4014-4099-91e9-7b1aee696b03"), ValidBpnl, "user1");
+
+        // Assert
+        var changeTracker = context.ChangeTracker;
+        var changedEntries = changeTracker.Entries().ToList();
+        changeTracker.HasChanges().Should().BeTrue();
+        changedEntries.Should().HaveCount(3);
+        changedEntries.ForEach(entry => entry.State.Should().Be(EntityState.Deleted));
+    }
+
     #endregion
 
     #region AttachAndModifyProcessData

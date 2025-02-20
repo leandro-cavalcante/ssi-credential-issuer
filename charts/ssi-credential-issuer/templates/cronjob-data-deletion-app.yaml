@@ -20,7 +20,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "issuer.fullname" . }}-{{ .Values.credentialExpiry.name }}
+  name: {{ include "issuer.fullname" . }}-{{ .Values.credentialDataDeletion.name }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "issuer.labels" . | nindent 4 }}
@@ -29,13 +29,13 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     metadata:
-      name: {{ include "issuer.fullname" . }}-{{ .Values.credentialExpiry.name }}
+      name: {{ include "issuer.fullname" . }}-{{ .Values.credentialDataDeletion.name }}
     spec:
       template:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: {{ include "issuer.fullname" . }}-{{ .Values.credentialExpiry.name }}
+          - name: {{ include "issuer.fullname" . }}-{{ .Values.credentialDataDeletion.name }}
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -43,8 +43,8 @@ spec:
                 - ALL
               readOnlyRootFilesystem: true
               runAsNonRoot: true
-            image: "{{ .Values.credentialExpiry.image.name }}:{{ .Values.credentialExpiry.image.tag | default .Chart.AppVersion }}"
-            imagePullPolicy: "{{ .Values.credentialExpiry.imagePullPolicy }}"
+            image: "{{ .Values.credentialDataDeletion.image.name }}:{{ .Values.credentialDataDeletion.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy: "{{ .Values.credentialDataDeletion.imagePullPolicy }}"
             env:
             - name: DOTNET_ENVIRONMENT
               value: "{{ .Values.dotnetEnvironment }}"
@@ -67,11 +67,11 @@ spec:
               value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.username }};Password=$(ISSUER_PASSWORD);Ssl Mode={{ .Values.dbConnection.sslMode }};"
             {{- end }}
             - name: "EXPIRY__EXPIREDVCSTODELETEINMONTH"
-              value: "{{ .Values.credentialExpiry.expiry.expiredVcsToDeleteInMonth }}"
-            - name: "EXPIRY__INACTIVEVCSTODELETEINWEEKS"
-              value: "{{ .Values.credentialExpiry.expiry.inactiveVcsToDeleteInWeeks }}"
+              value: "{{ .Values.credentialDataDeletion.expiry.expiredVcsToDeleteInMonth }}"
+            - name: "EXPIRY__INACTIVEVCSTODELETEINDAYS"
+              value: "{{ .Values.credentialDataDeletion.expiry.inactiveVcsToDeleteInDAYS }}"
             - name: "PROCESSIDENTITY__IDENTITYID"
-              value: "{{ .Values.credentialExpiry.processIdentity.identityId }}"
+              value: "{{ .Values.credentialDataDeletion.processIdentity.identityId }}"
             - name: "PORTAL__CLIENTID"
               value: "{{ .Values.service.portal.clientId }}"
             - name: "PORTAL__CLIENTSECRET"
@@ -96,4 +96,4 @@ spec:
               containerPort: {{ .Values.portContainer }}
               protocol: TCP
             resources:
-              {{- toYaml .Values.credentialExpiry.resources | nindent 14 }}
+              {{- toYaml .Values.credentialDataDeletion.resources | nindent 14 }}

@@ -23,16 +23,16 @@ using Microsoft.Extensions.Options;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.DateTimeProvider;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.ErrorHandling;
 using Org.Eclipse.TractusX.Portal.Backend.Framework.Models;
+using Org.Eclipse.TractusX.SsiCredentialIssuer.DataDeletion.App.DependencyInjection;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess.Models;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.DBAccess.Repositories;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Entities.Enums;
-using Org.Eclipse.TractusX.SsiCredentialIssuer.Expiry.App.DependencyInjection;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Portal.Service.Models;
 using Org.Eclipse.TractusX.SsiCredentialIssuer.Portal.Service.Services;
 using System.Text.Json;
 
-namespace Org.Eclipse.TractusX.SsiCredentialIssuer.Expiry.App;
+namespace Org.Eclipse.TractusX.SsiCredentialIssuer.DataDeletion.App;
 
 /// <summary>
 /// Service to delete the pending and inactive documents as well as the depending consents from the database
@@ -81,7 +81,7 @@ public class ExpiryCheckService
                 var now = dateTimeProvider.OffsetNow;
                 var companySsiDetailsRepository = repositories.GetInstance<ICompanySsiDetailsRepository>();
                 var processStepRepository = repositories.GetInstance<IProcessStepRepository>();
-                var inactiveVcsToDelete = now.AddDays(-(_settings.InactiveVcsToDeleteInWeeks * 7));
+                var inactiveVcsToDelete = now.AddDays(-_settings.InactiveVcsToDeleteInDays);
                 var expiredVcsToDelete = now.AddMonths(-_settings.ExpiredVcsToDeleteInMonth);
 
                 var credentials = outerLoopRepositories.GetInstance<ICompanySsiDetailsRepository>()
@@ -94,7 +94,7 @@ public class ExpiryCheckService
             catch (Exception ex)
             {
                 Environment.ExitCode = 1;
-                _logger.LogError("Verified Credential expiry check failed with error: {Errors}", ex.Message);
+                _logger.LogError(ex, "Verified Credential expiry check failed with error: {Errors}", ex.Message);
             }
         }
     }

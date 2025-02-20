@@ -96,15 +96,15 @@ dependencies:
 | processesworker.wallet.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
 | processesworker.wallet.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
 | processesworker.wallet.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for wallet. Secret-key 'process-wallet-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
-| credentialExpiry.name | string | `"expiry"` |  |
-| credentialExpiry.image.name | string | `"docker.io/tractusx/ssi-credential-expiry-app"` |  |
-| credentialExpiry.image.tag | string | `""` |  |
-| credentialExpiry.imagePullPolicy | string | `"IfNotPresent"` |  |
-| credentialExpiry.resources | object | `{"limits":{"cpu":"45m","memory":"105M"},"requests":{"cpu":"15m","memory":"105M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
-| credentialExpiry.processIdentity.identityId | string | `"ac1cf001-7fbc-1f2f-817f-bce058020006"` |  |
-| credentialExpiry.logging.default | string | `"Information"` |  |
-| credentialExpiry.expiry.expiredVcsToDeleteInMonth | int | `12` |  |
-| credentialExpiry.expiry.inactiveVcsToDeleteInWeeks | int | `12` |  |
+| credentialDataDeletion.name | string | `"data-deletion"` |  |
+| credentialDataDeletion.image.name | string | `"docker.io/tractusx/ssi-credential-data-deletion-app"` |  |
+| credentialDataDeletion.image.tag | string | `""` |  |
+| credentialDataDeletion.imagePullPolicy | string | `"IfNotPresent"` |  |
+| credentialDataDeletion.resources | object | `{"limits":{"cpu":"45m","memory":"105M"},"requests":{"cpu":"15m","memory":"105M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
+| credentialDataDeletion.processIdentity.identityId | string | `"ac1cf001-7fbc-1f2f-817f-bce058020006"` |  |
+| credentialDataDeletion.logging.default | string | `"Information"` |  |
+| credentialDataDeletion.expiry.expiredVcsToDeleteInMonth | int | `12` |  |
+| credentialDataDeletion.expiry.inactiveVcsToDeleteInDays | int | `84` |  |
 | existingSecret | string | `""` | Secret containing the client-secrets for the connection to portal and wallet as well as encryptionKeys for issuer.credential and processesworker.wallet |
 | dotnetEnvironment | string | `"Production"` |  |
 | dbConnection.schema | string | `"issuer"` |  |

@@ -1038,7 +1038,7 @@ public class IssuerBusinessLogicTests
         // Assert
         A.CallTo(() => _documentRepository.CreateDocument("TRACEABILITY_FRAMEWORK.json", A<byte[]>._, A<byte[]>._, MediaTypeId.JSON, DocumentTypeId.PRESENTATION, A<Action<Document>>._))
             .MustHaveHappenedOnceExactly();
-        A.CallTo(() => _companySsiDetailsRepository.CreateSsiDetails(_identity.Bpnl, VerifiedCredentialTypeId.TRACEABILITY_FRAMEWORK, CompanySsiDetailStatusId.PENDING, IssuerBpnl, _identity.IdentityId, A<Action<CompanySsiDetail>>._))
+        A.CallTo(() => _companySsiDetailsRepository.CreateSsiDetails(_identity.Bpnl, VerifiedCredentialTypeId.TRACEABILITY_FRAMEWORK, CompanySsiDetailStatusId.ACTIVE, IssuerBpnl, _identity.IdentityId, A<Action<CompanySsiDetail>>._))
             .MustHaveHappenedOnceExactly();
         A.CallTo(() => _documentRepository.AssignDocumentToCompanySsiDetails(A<Guid>._, A<Guid>._))
             .MustHaveHappenedOnceExactly();

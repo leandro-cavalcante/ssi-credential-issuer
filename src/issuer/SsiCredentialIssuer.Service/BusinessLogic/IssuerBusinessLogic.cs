@@ -453,12 +453,13 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
         }
 
         var holderDid = await GetHolderInformation(requestData.Holder, cancellationToken).ConfigureAwait(ConfigureAwaitOptions.None);
+        var expiryDate = DateTimeOffset.UtcNow.AddMonths(12); // GetExpiryDate(result.Expiry)
         var schemaData = new FrameworkCredential(
             Guid.NewGuid(),
             Context,
             new[] { "VerifiableCredential", externalTypeId },
             DateTimeOffset.UtcNow,
-            GetExpiryDate(result.Expiry),
+            expiryDate,
             _settings.IssuerDid,
             new FrameworkCredentialSubject(
                 holderDid,
@@ -516,6 +517,8 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
                 x.DocumentStatusId = DocumentStatusId.ACTIVE;
             }).Id;
 
+        /* 
+        // The framework’s credential auto-approval flow was enabled, but it wasn’t contributed upstream.
         Guid? processId = null;
         var status = CompanySsiDetailStatusId.PENDING;
         if (kindId != VerifiedCredentialTypeKindId.FRAMEWORK)
@@ -523,6 +526,9 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
             processId = CreateProcess();
             status = CompanySsiDetailStatusId.ACTIVE;
         }
+        */
+        Guid? processId = CreateProcess();
+        var status = CompanySsiDetailStatusId.ACTIVE;
 
         var ssiDetailId = companyCredentialDetailsRepository.CreateSsiDetails(
             bpnl,

@@ -26,5 +26,6 @@ public record OwnedVerifiedCredentialData(
     VerifiedCredentialTypeId CredentialType,
     CompanySsiDetailStatusId Status,
     DateTimeOffset? ExpiryDate,
+    string Holder,
     string Authority
 );

@@ -56,7 +56,8 @@ public class IssuerErrorMessageContainer : IErrorMessageContainer
         { IssuerErrors.EMPTY_EXTERNAL_TYPE_ID, "External Type ID must be set" },
         { IssuerErrors.SCHEMA_NOT_SET, "The json schema must be set when approving a credential" },
         { IssuerErrors.SCHEMA_NOT_FRAMEWORK, "The schema must be a framework credential" },
-        { IssuerErrors.PENDING_CREDENTIAL_ALREADY_EXISTS, "Pending Credential request for version {versionId} and framework {frameworkId} does already exist" }
+        { IssuerErrors.PENDING_CREDENTIAL_ALREADY_EXISTS, "Pending Credential request for version {versionId} and framework {frameworkId} does already exist" },
+        { IssuerErrors.ACTIVE_CREDENTIAL_ALREADY_EXISTS, "Credential for version {versionId} and framework {frameworkId} does already exist and is currently active" }
     }.ToImmutableDictionary(x => (int)x.Key, x => x.Value);
 
     public Type Type { get => typeof(IssuerErrors); }
@@ -94,5 +95,6 @@ public enum IssuerErrors
     EMPTY_EXTERNAL_TYPE_ID,
     SCHEMA_NOT_SET,
     SCHEMA_NOT_FRAMEWORK,
-    PENDING_CREDENTIAL_ALREADY_EXISTS
+    PENDING_CREDENTIAL_ALREADY_EXISTS,
+    ACTIVE_CREDENTIAL_ALREADY_EXISTS
 }

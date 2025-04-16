@@ -137,7 +137,7 @@ public class CompanySsiDetailsRepository(IssuerDbContext context)
                 (verifiedCredentialExternalTypeUseCaseDetailId == null || x.VerifiedCredentialExternalTypeDetailVersionId == verifiedCredentialExternalTypeUseCaseDetailId));
 
     /// <inheritdoc />
-    public Task<(bool Exists, string? Version, string? Template, IEnumerable<VerifiedCredentialExternalTypeId> ExternalTypeIds, DateTimeOffset Expiry, bool PendingCredentialRequestExists)> CheckCredentialTypeIdExistsForExternalTypeDetailVersionId(Guid verifiedCredentialExternalTypeUseCaseDetailId, VerifiedCredentialTypeId verifiedCredentialTypeId, string bpnl) =>
+    public Task<(bool Exists, string? Version, string? Template, IEnumerable<VerifiedCredentialExternalTypeId> ExternalTypeIds, DateTimeOffset Expiry, bool ActiveCredentialRequestExists)> CheckCredentialTypeIdExistsForExternalTypeDetailVersionId(Guid verifiedCredentialExternalTypeUseCaseDetailId, VerifiedCredentialTypeId verifiedCredentialTypeId, string bpnl) =>
         context.VerifiedCredentialExternalTypeDetailVersions
             .Where(x =>
                 x.Id == verifiedCredentialExternalTypeUseCaseDetailId &&
@@ -148,7 +148,7 @@ public class CompanySsiDetailsRepository(IssuerDbContext context)
                 x.Template,
                 x.VerifiedCredentialExternalType!.VerifiedCredentialTypeAssignedExternalTypes.Select(y => y.VerifiedCredentialExternalTypeId),
                 x.Expiry,
-                x.CompanySsiDetails.Any(ssi => ssi.Bpnl == bpnl && ssi.CompanySsiDetailStatusId == CompanySsiDetailStatusId.PENDING)))
+                x.CompanySsiDetails.Any(ssi => ssi.Bpnl == bpnl && ssi.CompanySsiDetailStatusId == CompanySsiDetailStatusId.ACTIVE)))
             .SingleOrDefaultAsync();
 
     /// <inheritdoc />

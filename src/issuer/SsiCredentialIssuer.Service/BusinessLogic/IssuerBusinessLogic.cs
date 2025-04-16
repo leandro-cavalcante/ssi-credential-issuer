@@ -441,9 +441,9 @@ public class IssuerBusinessLogic : IIssuerBusinessLogic
             throw ControllerArgumentException.Create(IssuerErrors.MULTIPLE_USE_CASES);
         }
 
-        if (result.PendingCredentialRequestExists)
+        if (result.ActiveCredentialRequestExists)
         {
-            throw ConflictException.Create(IssuerErrors.PENDING_CREDENTIAL_ALREADY_EXISTS, new ErrorParameter[] { new("versionId", requestData.UseCaseFrameworkVersionId.ToString()), new("frameworkId", requestData.UseCaseFrameworkId.ToString()) });
+            throw ConflictException.Create(IssuerErrors.ACTIVE_CREDENTIAL_ALREADY_EXISTS, new ErrorParameter[] { new("versionId", requestData.UseCaseFrameworkVersionId.ToString()), new("frameworkId", requestData.UseCaseFrameworkId.ToString()) });
         }
 
         var externalTypeId = result.ExternalTypeIds.Single().GetEnumValue();

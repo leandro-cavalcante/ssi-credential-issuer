@@ -1010,7 +1010,7 @@ public class IssuerBusinessLogicTests
         var ex = await Assert.ThrowsAsync<ConflictException>(Act);
 
         // Assert
-        ex.Message.Should().Be(IssuerErrors.PENDING_CREDENTIAL_ALREADY_EXISTS.ToString());
+        ex.Message.Should().Be(IssuerErrors.ACTIVE_CREDENTIAL_ALREADY_EXISTS.ToString());
     }
 
     [Fact]

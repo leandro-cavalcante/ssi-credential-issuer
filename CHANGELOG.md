@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0-cfx-4](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-3...1.1.0-cfx-4) (2025-02-24)
+### Added
+* Enhanced API Response Body with 'externalTypeDetail' Object by adding the version to the response of owned credentials api.
+  
+
+## [1.1.0-cfx-4-rc.1](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-3...1.1.0-cfx-4-rc.1) (2025-02-12)
+### Added
+* Enhanced API Response Body with 'externalTypeDetail' Object by adding the version to the response of owned credentials api.
+  
+
 ## [1.1.0-cfx-3](https://github.com/Cofinity-X/ssi-credential-issuer/compare/1.1.0-cfx-2...1.1.0-cfx-3) (2024-12-18)
 ### Added
 * Seeding now contains the creation of BPN and MEMBERSHIP credential during migration

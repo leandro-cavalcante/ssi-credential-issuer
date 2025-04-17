@@ -132,7 +132,7 @@ jobs:
             if [[ $tag == main* ]];
             then
               main_tag=$tag
-            elif [[ $tag == jupiter-rc* ]]
+            elif [[ $tag == release* ]]
             then
               main_tag=$tag
             fi
@@ -154,7 +154,7 @@ jobs:
         id: trigger_remote_workflow
         env:
           TOKEN: ${{ steps.get_token.outputs.token }}
-          HELM_VALUES_PATH: "ssi-credential-issuer/${{ github.ref == 'refs/heads/main' && 'dev' }}/values.yaml"
+          HELM_VALUES_PATH: "ssi-credential-issuer/dev/values.yaml"
           IMAGE_TAG: ${{ steps.get_tag.outputs.main_tag }}
           IMAGE_TAG_PROPERTY: '(.ssi-credential-issuer.[\"service\", \"migrations\", \"credentialDataDeletion\", \"processesworker\"].image.tag)'
           GITHUB_RUN_ID: ${{ github.run_id }}
